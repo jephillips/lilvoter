@@ -5,9 +5,7 @@ angular.module('app.model.poll',[])
     .factory('Poll', function (){
         function Poll(title){
             var poll = this;
-
             poll.title = title;
-
         }
 
         return Poll;

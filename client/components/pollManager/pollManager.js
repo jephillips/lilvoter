@@ -5,12 +5,16 @@
 var PollManagerController = function(pollService){
     var controller = this;
 
-    controller.polls = pollService.getPolls();
+    pollService.getPollList()
+        .then(function(result){
+            controller.polls = result;
+        });
 
+    // Doesn't persist yet
     controller.savePoll = function(poll){
-        pollService.addPoll(poll);
+        pollService.addPollPlaceholder(poll)
         // will need to move to promise once we add in async
-        controller.polls = pollService.getPolls();
+        pollService.getPollsPlaceholder()
     }
 };
 
