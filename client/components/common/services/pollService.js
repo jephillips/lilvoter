@@ -4,13 +4,18 @@
 
 angular.module('app.service.pollservice', [
     'app.model.poll'
-]).service('pollService', function(){
+]).service('pollService', function(Poll){
 
     var service = this,
-        polls = [{title: 'Poll 1'}, {title: 'Poll 2'}];
+        polls = [new Poll("Poll 1"), new Poll("Poll 2")];
 
     service.getPolls = function(){
         return polls;
+    };
+
+    service.addPoll = function(title){
+
+        polls.push(new Poll(title));
     }
 
 });

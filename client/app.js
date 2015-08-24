@@ -11,7 +11,7 @@ angular.module('app', [
         .state('home', {
             url: '/',
             templateUrl: 'components/pollManager/pollManager.html',
-            controller: 'PollManagerController as mngrCtrl'
+            controller: 'PollManagerController as managerCtrl'
         });
 
     $urlRouterProvider.otherwise('/')

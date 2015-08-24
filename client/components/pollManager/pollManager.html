@@ -1,5 +1,8 @@
 <div>
-    <div ng-repeat="poll in mngrCtrl.polls">
+    <p>Add a poll below! (well just the title)</p>
+    <input type="text" ng-model="managerCtrl.inputBox">
+    <button ng-click="managerCtrl.savePoll(managerCtrl.inputBox)">Save</button>
+    <div ng-repeat="poll in managerCtrl.polls">
         {{poll.title}}
     </div>
 </div>
