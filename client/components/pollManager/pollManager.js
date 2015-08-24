@@ -12,9 +12,10 @@ var PollManagerController = function(pollService){
 
     // Doesn't persist yet
     controller.savePoll = function(poll){
-        pollService.addPollPlaceholder(poll)
+        pollService.addPollPlaceholder(poll);
         // will need to move to promise once we add in async
-        pollService.getPollsPlaceholder()
+        pollService.getPollsPlaceholder();
+        controller.inputBox = '';
     }
 };
 
