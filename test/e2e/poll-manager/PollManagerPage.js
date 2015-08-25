@@ -12,7 +12,7 @@ function PollManagerPage(){
 
     this.clickButton = function(){
         this.button.click();
-    }
+    };
 
     this.sendInput = function(input){
         this.input.sendKeys(input)

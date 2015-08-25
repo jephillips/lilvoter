@@ -34,6 +34,16 @@ describe("Poll Manager", function () {
             expect(page.input.getText()).toBe('');
         })
 
+        it("should not save an empty string", function(){
+
+            page.clickButton();
+            browser.driver.switchTo().alert().accept();
+
+            page.pollList.then(function(result){
+                expect(result.length).toBe(2);
+            })
+        })
+
 
     })
 });

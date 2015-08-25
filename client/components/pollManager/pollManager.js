@@ -12,10 +12,15 @@ var PollManagerController = function(pollService){
 
     // Doesn't persist yet
     controller.savePoll = function(poll){
-        pollService.addPollPlaceholder(poll);
-        // will need to move to promise once we add in async
-        pollService.getPollsPlaceholder();
-        controller.inputBox = '';
+        console.log(poll);
+        if (!poll) {
+            alert("You must enter a value!");
+        } else {
+            pollService.addPollPlaceholder(poll);
+            // will need to move to promise once we add in async
+            pollService.getPollsPlaceholder();
+            controller.inputBox = '';
+        }
     }
 };
 
