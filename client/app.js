@@ -3,9 +3,12 @@
  */
 
 
-angular.module('app', [
-    'ui.router',
-    'app.pollmanager'
+const angular = require('angular');
+const appModule = angular.module('app', [
+    require('ui-router'),
+    'app.pollmanager',
+    'app.model.poll',
+    'app.service.pollservice'
 ]).config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
@@ -16,3 +19,5 @@ angular.module('app', [
 
     $urlRouterProvider.otherwise('/')
 });
+
+require('./components/components')(appModule, angular);
