@@ -23,6 +23,8 @@ var PollManagerController = function (pollService) {
     }
 };
 
-angular.module('app.pollmanager', [
-    'app.service.pollservice'
-]).controller('PollManagerController', PollManagerController);
+export default angular => {
+    angular.module('app.pollmanager', [
+        'app.service.pollservice'
+    ]).controller('PollManagerController', PollManagerController);
+}
