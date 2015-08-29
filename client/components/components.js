@@ -9,4 +9,5 @@ export default(ngModule, angular) => {
     require('./common/models/Poll')(angular);
     require('./common/services/pollService')(angular);
     require('./vote/vote')(angular);
+    require('./pollCreator/pollCreator')(angular);
 }

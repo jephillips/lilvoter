@@ -41,10 +41,10 @@ export default angular => {
 
         // Placeholders till persistent post to db/flatfile is added
 
-        service.addPollPlaceholder = function (title) {
+        service.addPoll = function (title, options) {
             // Need the backend to handle post request -- All you Jer
             //        polls.push(new Poll(title));
-            var poll = new Poll(title);
+            var poll = new Poll(title, options);
             return $http.post(URLS.FETCH, poll).then(function (data) {
                 console.log('successful POST of:');
                 console.log(poll);
