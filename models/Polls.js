@@ -14,14 +14,23 @@ var PollSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    choices: [choiceSchema]
+    choices: [choiceSchema],
+    updated_at: String,
+    created_at: String
 });
 
-//PollSchema.methods.vote = function (cb, index) {
-//    this.options[index].votes += 1;
-//    this.save(cb);
-//
-//}
+////// .pre() method will occur everytime the object is saved 
+//PollSchema.pre('save', function (next) {
+//    //get the date
+//    var currentDate = new Data();
+//    //set the last update to now
+//    this.updated_at = currentDate;
+//    //if the object is new, set the created date to now
+//    if (!this.created_at) {
+//        this.created_at = currentDate;
+//    }
+//    next();
+//});
 
 //register the model with the global mongoose object so that it can interact with the model anywhere it is imported
 mongoose.model('Poll', PollSchema);
