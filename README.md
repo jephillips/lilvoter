@@ -8,17 +8,8 @@ get set up:
 
 `mongod` in shell
 
-`mongo` to see the db 'polls'
+`webpack` to build the bundle.js
 
-`npm start` to start the server
+`npm start` to start the server at http://localhost:3000
 
-
-## for front end:
-
-From terminal: 
-
-1. npm install -g webpack 
-1. npm install
-2. webpack
-3. node . 
-4. http://localhost:5000
+In another console, `mongo` > `use polls`
