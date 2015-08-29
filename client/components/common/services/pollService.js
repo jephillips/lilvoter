@@ -21,6 +21,11 @@ export default angular => {
 
         };
 
+        // Temporary implementation
+        service.getPollById = function(id){
+            return new Poll('Mock Poll')
+        };
+
         function extractData(result) {
             return result.data;
         }

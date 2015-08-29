@@ -5,6 +5,9 @@
     </label>
     <button id="save-button" ng-click="managerCtrl.savePoll(managerCtrl.inputBox)">Save</button>
     <div ng-repeat="poll in managerCtrl.polls">
-        {{poll.title}}
+        <button ui-sref="vote({id:poll._id})">
+            {{poll.title}}
+        </button>
+
     </div>
 </div>
