@@ -9,11 +9,12 @@ var CreateController = function(pollService, $state){
 
     };
 
-    ctrl.options = [];
+    ctrl.options = [{position: 0}];
     ctrl.title = '';
 
     ctrl.removeOption = function(option){
         ctrl.options.splice(option.position, 1)
+        updatePositions();
     };
 
     ctrl.addOption = function(){
@@ -27,6 +28,12 @@ var CreateController = function(pollService, $state){
         $state.go('home');
         } else {
             alert("Title must not be empty")
+        }
+    };
+
+    function updatePositions(){
+        for(var i = 0; i<ctrl.options.length; i++){
+            ctrl.options[i].position = i;
         }
     }
 };
