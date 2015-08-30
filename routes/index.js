@@ -13,9 +13,6 @@ router.get('/', function (req, res, next) {
     });
 });
 
-
-
-
 // GET route for retrieving all polls
 //req contains all the info about the request to the server including datafields; res is the object used to respond
 router.get('/polls', function (req, res, next) {
@@ -51,14 +48,13 @@ router.param('poll', function (req, res, next, id) {
 
     var query = Poll.findById(id);
 
-    query.exec(function (err, poll) {
+    query.lean().exec(function (err, poll) {
         if (err) {
             return next(err);
         }
         if (!poll) {
             return next(new Error('cannot find poll'));
         }
-
         req.poll = poll;
         return next();
     });
@@ -66,7 +62,31 @@ router.param('poll', function (req, res, next, id) {
 
 // GET Route to return a single poll
 router.get('/polls/:poll', function (req, res, next) {
-    res.json(req.poll);
+    //get some useful stuff for the requested poll
+    poll = req.poll; //attached by middleware
+    console.log('poll at start of GET:', poll.choices[0])
+    var userVoted = false;
+    var userChoice;
+    var totalVotes = 0;
+    for (c in poll.choices) {
+        var choice = poll.choices[c];
+        for (v in choice.votes) {
+            var vote = choice.votes[v];
+            totalVotes++;
+            if (vote.ip === (req.ip || req.header('x-forwarded-for'))) {
+                userVoted = true;
+                userChoice = {
+                    _id: choice._id,
+                    text: choice.text
+                };
+            }
+        }
+    }
+    poll.userVoted = userVoted;
+    poll.userChoice = userChoice;
+    poll.totalVotes = totalVotes;
+    console.log('poll at end of GET:', poll);
+    res.json(poll);
 });
 
 //PUT Route to take the users vote

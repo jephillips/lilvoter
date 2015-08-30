@@ -32,5 +32,6 @@ var PollSchema = new mongoose.Schema({
 //    next();
 //});
 
+
 //register the model with the global mongoose object so that it can interact with the model anywhere it is imported
 mongoose.model('Poll', PollSchema);
