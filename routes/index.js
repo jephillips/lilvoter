@@ -35,7 +35,7 @@ router.post('/polls', function (req, res, next) {
     //create a new poll object in memory before saving to the db
     var poll = new Poll(req.body);
 
-    poll.save(function (err, post) {
+    poll.save(function (err, poll) {
         if (err) {
             return next(err);
         }
@@ -65,13 +65,13 @@ router.param('poll', function (req, res, next, id) {
 });
 
 // GET Route to return a single poll
-router.get('polls/:poll', function (req, res, next) {
-    res.json(req.post);
+router.get('/polls/:poll', function (req, res, next) {
+    res.json(req.poll);
 });
 
 //PUT Route to take the users vote
-router.put('polls/:poll/vote', function (req, res, next) {
-    req.poll.vote(function (err, post) {
+router.put('/polls/:poll/vote', function (req, res, next) {
+    req.poll.vote(function (err, poll) {
         if (err) {
             return next(err);
         }

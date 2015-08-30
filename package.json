@@ -16,7 +16,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "startwebpack": "node node_modules/.bin/webpack-dev-server --content-base app",
-        "start": "webpack ./client/app.js ./client/bundle.js && node ./bin/www"
+        "start": "node ./bin/www"
     },
     "dependencies": {
         "angular": "^1.4.4",

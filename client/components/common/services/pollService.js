@@ -16,14 +16,18 @@ export default angular => {
             };
 
         service.getPollList = function () {
-            //        return (polls) ? $q.when(polls) : $http.get(URLS.FETCH).then(cacheResults); //TODO: add a error callback if request failed
+            //            return (polls) ? $q.when(polls) : $http.get(URLS.FETCH).then(cacheResults); //TODO: add a error callback if request failed
             return $http.get(URLS.FETCH).then(cacheResults)
 
         };
 
         // Temporary implementation
-        service.getPollById = function(id){
-            return new Poll('Mock Poll')
+        service.getPollById = function (id) {
+            //            return new Poll('Mock Poll')
+            return $http.get(URLS.FETCH + '/' + id).then(function (res) {
+                console.log(res)
+                return res.data;
+            });
         };
 
         function extractData(result) {
@@ -31,8 +35,6 @@ export default angular => {
         }
 
         function cacheResults(result) {
-            console.log('result is:');
-            console.log(result);
             polls = extractData(result);
             console.log('polls is:');
             console.log(polls);
@@ -45,7 +47,7 @@ export default angular => {
             // Need the backend to handle post request -- All you Jer
             //        polls.push(new Poll(title));
             var poll = new Poll(title, options);
-            return $http.post(URLS.FETCH, poll).then(function (data) {
+            return $http.post(URLS.POST, poll).then(function (data) {
                 console.log('successful POST of:');
                 console.log(poll);
                 polls.push(poll);
