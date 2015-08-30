@@ -4,7 +4,7 @@
 
     <p>Options:</p>
     <div ng-repeat="option in createCtrl.options">
-        <input type="text" ng-model="option.value">
+        <input type="text" ng-model="option.text">
         <button ng-click="createCtrl.removeOption(option)">Remove Option</button>
     </div>
     <button ng-click="createCtrl.addOption()">Add Option</button>

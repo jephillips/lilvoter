@@ -2,8 +2,7 @@
     {{voteCtrl.currentPoll.title}}
     <div ng-repeat="choice in voteCtrl.currentPoll.choices">
         <label>
-            <input type="radio" ng-model="voteCtrl.choice" value="{{choice._id}}">
-            {{choice._id}}
+            <input type="radio" ng-model="voteCtrl.choice" value="{{choice._id}}"> {{choice.text}}
         </label>
     </div>
     {{voteCtrl.choice}}

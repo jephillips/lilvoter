@@ -30,16 +30,24 @@ router.get('/polls', function (req, res, next) {
 // POST route for creating polls
 router.post('/polls', function (req, res, next) {
     //create a new poll object in memory before saving to the db
-    var poll = new Poll(req.body);
+    var body = req.body;
+    var choices = body.choices.filter(function (v) {
+        return v.text != '';
+    })
+    var pollobj = {
+        title: body.title,
+        choices: choices
+    };
 
-    poll.save(function (err, poll) {
-        if (err) {
+    var poll = new Poll(pollobj);
+
+    poll.save(function (err, doc) {
+        if (err || !doc) {
             return next(err);
+        } else {
+            res.json(doc);
         }
-
-        res.json(poll);
     });
-
 });
 
 // Middleware route to load a poll by id, using express's param() function
@@ -64,29 +72,35 @@ router.param('poll', function (req, res, next, id) {
 router.get('/polls/:poll', function (req, res, next) {
     //get some useful stuff for the requested poll
     poll = req.poll; //attached by middleware
-    console.log('poll at start of GET:', poll.choices[0])
-    var userVoted = false;
-    var userChoice;
-    var totalVotes = 0;
-    for (c in poll.choices) {
-        var choice = poll.choices[c];
-        for (v in choice.votes) {
-            var vote = choice.votes[v];
-            totalVotes++;
-            if (vote.ip === (req.ip || req.header('x-forwarded-for'))) {
-                userVoted = true;
-                userChoice = {
-                    _id: choice._id,
-                    text: choice.text
-                };
+    if (poll) {
+        console.log('poll at start of GET:', poll.choices[0])
+        var userVoted = false;
+        var userChoice;
+        var totalVotes = 0;
+        for (c in poll.choices) {
+            var choice = poll.choices[c];
+            for (v in choice.votes) {
+                var vote = choice.votes[v];
+                totalVotes++;
+                if (vote.ip === (req.ip || req.header('x-forwarded-for'))) {
+                    userVoted = true;
+                    userChoice = {
+                        _id: choice._id,
+                        text: choice.text
+                    };
+                }
             }
         }
+        poll.userVoted = userVoted;
+        poll.userChoice = userChoice;
+        poll.totalVotes = totalVotes;
+        console.log('poll at end of GET:', poll);
+        res.json(poll);
+    } else {
+        res.json({
+            error: true
+        });
     }
-    poll.userVoted = userVoted;
-    poll.userChoice = userChoice;
-    poll.totalVotes = totalVotes;
-    console.log('poll at end of GET:', poll);
-    res.json(poll);
 });
 
 //PUT Route to take the users vote

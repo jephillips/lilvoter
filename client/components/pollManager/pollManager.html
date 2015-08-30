@@ -1,11 +1,15 @@
 <div>
     <div>
-        <button ui-sref="create">Create New Poll</button>
+        <label>Create New Poll
+            <button ui-sref="create">Create</button>
+        </label>
     </div>
-    <div ng-repeat="poll in managerCtrl.polls">
-        <button ui-sref="vote({id:poll._id})">
-            {{poll.title}}
-        </button>
-
+    <div>
+        <h4>Existing Polls:</h4>
+        <ul ng-repeat="poll in managerCtrl.polls">
+            <li>
+                <a ui-sref="vote({id:poll._id})">{{poll}}</a>
+            </li>
+        </ul>
     </div>
 </div>
