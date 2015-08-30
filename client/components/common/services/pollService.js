@@ -8,11 +8,11 @@ export default angular => {
 ]).service('pollService', function (Poll, $http, $q) {
 
         var service = this,
-            polls = [new Poll("Poll 1"), new Poll("Poll 2")],
+            polls = [],
             URLS = {
-                //            FETCH: 'data.json'
                 FETCH: 'http://localhost:3000/polls',
-                POST: 'http://localhost:3000/polls'
+                POST: 'http://localhost:3000/polls',
+                PUT: 'http://localhost:3000/polls'
             };
 
         service.getPollList = function () {
@@ -23,9 +23,7 @@ export default angular => {
 
         // Temporary implementation
         service.getPollById = function (id) {
-            //            return new Poll('Mock Poll')
             return $http.get(URLS.FETCH + '/' + id).then(function (res) {
-                console.log(res)
                 return res.data;
             });
         };
@@ -36,20 +34,12 @@ export default angular => {
 
         function cacheResults(result) {
             polls = extractData(result);
-            console.log('polls is:');
-            console.log(polls);
             return polls;
         }
 
-        // Placeholders till persistent post to db/flatfile is added
-
         service.addPoll = function (title, options) {
-            // Need the backend to handle post request -- All you Jer
-            //        polls.push(new Poll(title));
             var poll = new Poll(title, options);
             return $http.post(URLS.POST, poll).then(function (data) {
-                console.log('successful POST of:');
-                console.log(poll);
                 polls.push(poll);
             });
 
@@ -59,5 +49,15 @@ export default angular => {
             //        return polls;
             return $http.get(URLS.FETCH).then(cacheResults);
         };
+
+        service.submitVote = function (pollid, choiceid) {
+            var data = {
+                userChoice: choiceid
+            };
+            return $http.put(URLS.PUT + '/' + pollid + '/vote', data).then(function (res) {
+                return res.data;
+            })
+        };
+
     });
 }

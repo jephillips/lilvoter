@@ -63,17 +63,7 @@ router.param('poll', function (req, res, next, id) {
         if (!poll) {
             return next(new Error('cannot find poll'));
         }
-        req.poll = poll;
-        return next();
-    });
-});
-
-// GET Route to return a single poll
-router.get('/polls/:poll', function (req, res, next) {
-    //get some useful stuff for the requested poll
-    poll = req.poll; //attached by middleware
-    if (poll) {
-        console.log('poll at start of GET:', poll.choices[0])
+        //get some useful stuff for the requested poll
         var userVoted = false;
         var userChoice;
         var totalVotes = 0;
@@ -94,27 +84,58 @@ router.get('/polls/:poll', function (req, res, next) {
         poll.userVoted = userVoted;
         poll.userChoice = userChoice;
         poll.totalVotes = totalVotes;
-        console.log('poll at end of GET:', poll);
-        res.json(poll);
-    } else {
-        res.json({
-            error: true
-        });
-    }
+        req.poll = poll;
+        return next();
+    });
+});
+
+// GET Route to return a single poll
+router.get('/polls/:poll', function (req, res, next) {
+    res.json(req.poll);
 });
 
 //PUT Route to take the users vote
+//assumes that the req contains data.choice
 router.put('/polls/:poll/vote', function (req, res, next) {
-    req.poll.vote(function (err, poll) {
-        if (err) {
-            return next(err);
-        }
+    Poll.findById(req.poll._id, function (err, poll) {
+        var ip = req.header('x-forwarded-for') || req.ip;
+        var choice = poll.choices.id(req.body.userChoice);
+        console.log('choice is:', choice)
+        choice.votes.push({
+            ip: ip
+        });
+        poll.save(function (err, doc) {
+            if (err || !doc) {
+                return next(err);
+            } else {
+                var theDoc = {
+                    question: doc.question,
+                    _id: doc._id,
+                    choices: doc.choices,
+                    userVoted: false,
+                    totalVotes: 0
+                };
+                for (var i = 0, ln = doc.choices.length; i < ln; i++) {
+                    var choice = doc.choices[i];
+                    for (var j = 0, jLn = choice.votes.length; j < jLn; j++) {
+                        var vote = choice.votes[j];
+                        theDoc.totalVotes++;
+                        theDoc.ip = ip;
+                        if (vote.ip === ip) {
+                            theDoc.userVoted = true;
+                            theDoc.userChoice = {
+                                _id: choice._id,
+                                text: choice.text
+                            };
+                        }
+                    }
+                }
 
-        res.json(poll);
-
-    })
-
-})
+                res.json(doc);
+            }
+        });
+    });
+});
 
 
 

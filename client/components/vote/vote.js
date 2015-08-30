@@ -10,10 +10,13 @@ var VoteController = function (pollService, $stateParams, $state) {
             ctrl.currentPoll = result;
         });
 
-    ctrl.submit = function(){
+    ctrl.submit = function () {
         console.log('Submit');
-        if (ctrl.choice){
+        if (ctrl.choice) {
+            pollService.submitVote($stateParams.id, ctrl.choice);
+            // TODO : check for res.status === 200
             $state.go('home');
+
         } else {
             alert('You must select an option!');
         }
@@ -23,5 +26,5 @@ var VoteController = function (pollService, $stateParams, $state) {
 
 export default angular => {
     angular.module('app.vote', ['app.service.pollservice'])
-    .controller('VoteController', VoteController);
+        .controller('VoteController', VoteController);
 }
