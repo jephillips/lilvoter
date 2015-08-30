@@ -8,7 +8,7 @@
         <h4>Existing Polls:</h4>
         <ul ng-repeat="poll in managerCtrl.polls">
             <li>
-                <a ui-sref="vote({id:poll._id})">{{poll}}</a>
+                <a ui-sref="vote({id:poll._id})">{{poll.title}}</a>
             </li>
         </ul>
     </div>
