@@ -100,7 +100,6 @@ router.put('/polls/:poll/vote', function (req, res, next) {
     Poll.findById(req.poll._id, function (err, poll) {
         var ip = req.header('x-forwarded-for') || req.ip;
         var choice = poll.choices.id(req.body.userChoice);
-        console.log('choice is:', choice)
         choice.votes.push({
             ip: ip
         });
@@ -131,7 +130,7 @@ router.put('/polls/:poll/vote', function (req, res, next) {
                     }
                 }
 
-                res.json(doc);
+                res.json(theDoc);
             }
         });
     });
