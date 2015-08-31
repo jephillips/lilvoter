@@ -15,6 +15,7 @@ var VoteController = function (pollService, $stateParams, $state) {
         if (ctrl.choice) {
             pollService.submitVote($stateParams.id, ctrl.choice);
             // TODO : check for res.status === 200
+            alert("Thank you for voting!")
             $state.go('home');
 
         } else {
