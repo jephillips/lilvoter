@@ -6,6 +6,7 @@ const appModule = angular.module('app', [
     require('ui-router'),
     'app.pollmanager',
     'app.vote',
+    'app.results',
     'app.create',
     'app.model.poll',
     'app.service.pollservice'
@@ -20,6 +21,11 @@ const appModule = angular.module('app', [
             url: '/vote/{id}',
             templateUrl: 'components/vote/vote.html',
             controller: 'VoteController as voteCtrl'
+        })
+        .state('results', {
+            url: '/results/{id}',
+            templateUrl: 'components/results/results.html',
+            controller: 'ResultsController as resultsCtrl'
         })
         .state('create', {
             url: '/create',

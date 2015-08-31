@@ -1,0 +1,9 @@
+<div>
+    <h1>Results:</h1>
+    <div ng-repeat="choice in resultsCtrl.currentPoll.choices">
+        <label>
+            - {{choice.text}} - {{choice.votes.length}}
+        </label>
+    </div>
+    <button ui-sref="home">Back</button>
+</div>

@@ -9,6 +9,7 @@
         <ul ng-repeat="poll in managerCtrl.polls">
             <li>
                 <a ui-sref="vote({id:poll._id})">{{poll.title}}</a>
+                <a ui-sref="results({id:poll._id})">See Results</a>
             </li>
         </ul>
     </div>
