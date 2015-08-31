@@ -3,12 +3,11 @@
     <input type="text" ng-model="createCtrl.title">
 
     <p>Options:</p>
-
+    <button ng-click="createCtrl.addOption()">Add Option</button>
     <div ng-repeat="option in createCtrl.options">
         <input type="text" ng-model="option.text">
         <button ng-click="createCtrl.removeOption(option)">Remove Option</button>
     </div>
-    <button ng-click="createCtrl.addOption()">Add Option</button>
     <div>
         <button ui-sref="home">Cancel</button>
         <button ng-click="createCtrl.submit()">Submit</button>
