@@ -1,7 +1,7 @@
 body {
-    padding: 50px;
+    padding: 15px;
     font-family: lobster, serif !important;
-    background-color: #512DA8;
+    background-color: #0288D1;
     height: 100%;
     color: #FFFFFF;
 }
@@ -11,21 +11,30 @@ body {
 }
 
 .container {
+    background-color: #03A9F4;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    overflow: auto;
     padding: 20px;
-    background-color: #673AB7;
+
+    border-radius: 10px;
+
+}
+
+.poll-list-item {
+    margin: 25px;
+}
+
+.md-button {
+    padding: 10px;
+    background-color: #448AFF
 }
 
 div {
     margin: 5px;
-}
-
-.centered-button {
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 10px;
-    width: 50%;
-    font-size: 16px;
-    text-align: center;
 }
 
 a {
