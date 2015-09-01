@@ -2,13 +2,17 @@
  * Created by josh on 8/24/15.
  */
 
-var PollManagerController = function (pollService) {
+var PollManagerController = function (pollService, $state) {
     var controller = this;
 
     pollService.getPollList()
         .then(function (result) {
             controller.polls = result;
         });
+
+    controller.createPoll = function(){
+        $state.go('create')
+    }
 
     // Doesn't persist yet
     controller.savePoll = function (poll) {

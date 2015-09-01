@@ -1,8 +1,33 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font-family: lobster, serif !important;
+    background-color: #512DA8;
+    height: 100%;
+    color: #FFFFFF;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+}
+
+.container {
+    padding: 20px;
+    background-color: #673AB7;
+}
+
+div {
+    margin: 5px;
+}
+
+.centered-button {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 10px;
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
 }
 
 a {
-  color: #00B7FF;
+    color: whitesmoke;
 }

@@ -1,9 +1,12 @@
 /**
  * Created by josh on 8/24/15.
  */
+
+require('./stylesheets/style.css');
 const angular = require('angular');
 const appModule = angular.module('app', [
     require('ui-router'),
+    require('angular-material'),
     'app.pollmanager',
     'app.vote',
     'app.results',

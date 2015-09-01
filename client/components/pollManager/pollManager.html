@@ -1,17 +1,20 @@
-<div>
+<md-card-content>
     <div>
-        <label>Create New Poll
-            <button ui-sref="create">Create</button>
+        <label class="centered-button">
+            Create New Poll
+            <button ng-click="managerCtrl.createPoll()">Create</button>
         </label>
     </div>
     <div>
         <h4>Existing Polls:</h4>
-        <ul ng-repeat="poll in managerCtrl.polls">
-            <li>
-                <a ui-sref="vote({id:poll._id})">{{poll.title}}</a>
+        <md-list>
+            <md-list-item ng-repeat="poll in managerCtrl.polls">
+            <div class="md-list-item-text">
+                <md-button ui-sref="vote({id:poll._id})">{{poll.title}}</md-button>
                 ||
-                <a ui-sref="results({id:poll._id})">See Results</a>
-            </li>
-        </ul>
+                <md-button ui-sref="results({id:poll._id})">See Results</md-button>
+            </div>
+            </md-list-item>
+        </md-list>
     </div>
-</div>
+</md-card-content>
