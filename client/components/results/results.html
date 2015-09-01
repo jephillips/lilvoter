@@ -1,5 +1,6 @@
 <div>
-    <h1>Results:</h1>
+    <h1>{{resultsCtrl.currentPoll.title}}</h1>
+    <h2>Results:</h2>
     <div ng-repeat="choice in resultsCtrl.currentPoll.choices">
         <label>
             - {{choice.text}} - {{choice.votes.length}}
