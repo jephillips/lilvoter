@@ -40,3 +40,12 @@ div {
 a {
     color: whitesmoke;
 }
+
+#create-button {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 10px;
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
+}
